@@ -27,7 +27,7 @@ jobs:
           command: echo ${username}
       - run:
           name: "What brand am I on?"
-          command: echo ${CICLE_BRANCH}
+          command: echo $CICLE_BRANCH
 
 workflows:
   # Name the workflow "welcome"
