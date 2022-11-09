@@ -19,10 +19,24 @@ jobs:
           at: ~/
       - run: cat ~/output.txt
 
+  print_pipeline_id:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: echo $CICLE_WORKFLOW_ID > ~/output.txt
+      - persist_to_workspace:
+        root: ~/
+        paths:
+          - output.txt
+
 workflows:
   my_workflow:
     jobs:
       - save_hello_world_output
+      - print_pipeline_id:
+        requires:
+            - save_hello_world_output
       - print_output_file:
           requires:
-            - save_hello_world_output
+            - print_pipeline_id
